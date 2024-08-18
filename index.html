@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="angular.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        var myapp = angular.module("converterApp", []); 
+        myapp.controller("converterController", function($scope) {
+            $scope.convert = function() {
+                var src = $scope.source;
+                var dst = $scope.destination;
+                var value = parseFloat($scope.fn);
+
+                if (isNaN(value)) {
+                    $scope.output = "Please enter a valid number.";
+                    return;
+                }
+
+                if (src === "rupee") {
+                    if (dst === "usd") {
+                        $scope.output = "Rupee to Dollar is " + (value * 0.013);
+                    } else if (dst === "euro") {
+                        $scope.output = "Rupee to Euro is " + (value * 0.012);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "usd") {
+                    if (dst === "rupee") {
+                        $scope.output = "Dollar to Rupee is " + (value * 76.58);
+                    } else if (dst === "euro") {
+                        $scope.output = "Dollar to Euro is " + (value * 0.92);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "euro") {
+                    if (dst === "rupee") {
+                        $scope.output = "Euro to Rupee is " + (value * 83.22);
+                    } else if (dst === "usd") {
+                        $scope.output = "Euro to Dollar is " + (value * 1.09);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "meter") {
+                    if (dst === "centimeter") {
+                        $scope.output = "Meter to Centimeter is " + (value * 100);
+                    } else if (dst === "foot") {
+                        $scope.output = "Meter to Foot is " + (value * 3.28084);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "centimeter") {
+                    if (dst === "meter") {
+                        $scope.output = "Centimeter to Meter is " + (value / 100);
+                    } else if (dst === "inch") {
+                        $scope.output = "Centimeter to Inch is " + (value * 0.393701);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "foot") {
+                    if (dst === "meter") {
+                        $scope.output = "Foot to Meter is " + (value / 3.28084);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "inch") {
+                    if (dst === "centimeter") {
+                        $scope.output = "Inch to Centimeter is " + (value / 0.393701);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "decimal") {
+                    if (dst === "binary") {
+                        $scope.output = "Decimal to Binary is " + (parseInt(value, 10).toString(2));
+                    } else if (dst === "octal") {
+                        $scope.output = "Decimal to Octal is " + (parseInt(value, 10).toString(8));
+                    } else if (dst === "hexadecimal") {
+                        $scope.output = "Decimal to Hexadecimal is " + (parseInt(value, 10).toString(16).toUpperCase());
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "binary") {
+                    if (dst === "decimal") {
+                        $scope.output = "Binary to Decimal is " + (parseInt(value, 2).toString(10));
+                    } else if (dst === "octal") {
+                        $scope.output = "Binary to Octal is " + (parseInt(value, 2).toString(8));
+                    } else if (dst === "hexadecimal") {
+                        $scope.output = "Binary to Hexadecimal is " + (parseInt(value, 2).toString(16).toUpperCase());
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "octal") {
+                    if (dst === "decimal") {
+                        $scope.output = "Octal to Decimal is " + (parseInt(value, 8).toString(10));
+                    } else if (dst === "binary") {
+                        $scope.output = "Octal to Binary is " + (parseInt(value, 8).toString(2));
+                    } else if (dst === "hexadecimal") {
+                        $scope.output = "Octal to Hexadecimal is " + (parseInt(value, 8).toString(16).toUpperCase());
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "hexadecimal") {
+                    if (dst === "decimal") {
+                        $scope.output = "Hexadecimal to Decimal is " + (parseInt(value, 16).toString(10));
+                    } else if (dst === "binary") {
+                        $scope.output = "Hexadecimal to Binary is " + (parseInt(value, 16).toString(2));
+                    } else if (dst === "octal") {
+                        $scope.output = "Hexadecimal to Octal is " + (parseInt(value, 16).toString(8));
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "celsius") {
+                    if (dst === "fahrenheit") {
+                        $scope.output = "Celsius to Fahrenheit is " + ((value * 9/5) + 32);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else if (src === "fahrenheit") {
+                    if (dst === "celsius") {
+                        $scope.output = "Fahrenheit to Celsius is " + ((value - 32) * 5/9);
+                    } else {
+                        $scope.output = "Invalid conversion type";
+                    }
+                } else {
+                    $scope.output = "Invalid conversion type";
+                }
+            };
+        });
+    </script>
+</head>
+<body class="container" ng-app="converterApp">
+    <h1><b>CONVERTER APP</b></h1>
+<div ng-controller="converterController">
+    Enter the value: <input type="text" ng-model="fn"/><br/><br/>
+    <select ng-model="source">
+        <option value="rupee">Rupee</option>
+        <option value="usd">Dollar</option>
+        <option value="euro">Euro</option>
+        <option value="meter">Meter</option>
+        <option value="centimeter">Centimeter</option>
+        <option value="foot">Foot</option>
+        <option value="inch">Inch</option>
+        <option value="decimal">Decimal</option>
+        <option value="binary">Binary</option>
+        <option value="octal">Octal</option>
+        <option value="hexadecimal">Hexadecimal</option>
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+    </select> To
+    <select ng-model="destination">
+        <option value="rupee">Rupee</option>
+        <option value="usd">Dollar</option>
+        <option value="euro">Euro</option>
+        <option value="meter">Meter</option>
+        <option value="centimeter">Centimeter</option>
+        <option value="foot">Foot</option>
+        <option value="inch">Inch</option>
+        <option value="decimal">Decimal</option>
+        <option value="binary">Binary</option>
+        <option value="octal">Octal</option>
+        <option value="hexadecimal">Hexadecimal</option>
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+    </select> <br/><br/>
+    <input type="button" value="Convert" ng-click="convert();"/> <br/>
+    <p>{{output}}</p>
+</div>
+</body>
+</html>
